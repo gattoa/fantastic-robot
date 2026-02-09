@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Score Keeper</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <section>
+    <h2>Phoenix Suns</h2>
+    <span id="score-a">0</span>
+    <div class="controls">
+      <button type="button" onclick="decrementTeamA()">−</button>
+      <button type="button" onclick="incrementTeamA()">+</button>
+    </div>
+  </section>
+
+  <section>
+    <h2>Chicago Bulls</h2>
+    <span id="score-b">0</span>
+    <div class="controls">
+      <button type="button" onclick="decrementTeamB()">−</button>
+      <button type="button" onclick="incrementTeamB()">+</button>
+    </div>
+  </section>
+
+  <script src="./script.js"></script>
+</body>
+</html>
