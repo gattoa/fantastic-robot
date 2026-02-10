@@ -33,32 +33,58 @@ function renderScores() {
   const scoreADiv = document.getElementById("score-a");
   const scoreBDiv = document.getElementById("score-b");
 
-  if (scoreADiv) scoreADiv.textContent = String(scoreA);
-  if (scoreBDiv) scoreBDiv.textContent = String(scoreB);
+  if (scoreADiv) {
+    scoreADiv.textContent = String(scoreA);
+    scoreADiv.setAttribute("aria-valuenow", String(scoreA));
+  }
+  if (scoreBDiv) {
+    scoreBDiv.textContent = String(scoreB);
+    scoreBDiv.setAttribute("aria-valuenow", String(scoreB));
+  }
 }
 
 function incrementTeamA() {
   scoreA += 1;
   renderScores();
   saveScores();
+  announceScore("Phoenix Suns", scoreA);
 }
 
 function decrementTeamA() {
   scoreA = Math.max(0, scoreA - 1);
   renderScores();
   saveScores();
+  announceScore("Phoenix Suns", scoreA);
 }
 
 function incrementTeamB() {
   scoreB += 1;
   renderScores();
   saveScores();
+  announceScore("Chicago Bulls", scoreB);
 }
 
 function decrementTeamB() {
   scoreB = Math.max(0, scoreB - 1);
   renderScores();
   saveScores();
+  announceScore("Chicago Bulls", scoreB);
+}
+
+function announceScore(teamName, score) {
+  // Create a live region announcement for screen readers
+  const announcement = document.createElement("div");
+  announcement.setAttribute("role", "status");
+  announcement.setAttribute("aria-live", "polite");
+  announcement.setAttribute("aria-atomic", "true");
+  announcement.className = "sr-only";
+  announcement.textContent = `${teamName} score is now ${score}`;
+  document.body.appendChild(announcement);
+  
+  // Remove after announcement
+  setTimeout(() => {
+    document.body.removeChild(announcement);
+  }, 1000);
 }
 
 // Ensure the UI matches initial state on load
