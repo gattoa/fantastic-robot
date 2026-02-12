@@ -1,0 +1,62 @@
+{
+  "version": "2.7",
+  "children": [
+    {
+      "type": "frame",
+      "id": "bi8Au",
+      "x": 0,
+      "y": 0,
+      "name": "Frame",
+      "clip": true,
+      "width": 800,
+      "height": 600,
+      "fill": "#FFFFFF",
+      "layout": "none",
+      "children": [
+        {
+          "type": "text",
+          "id": "hATMM",
+          "x": 144,
+          "y": 121,
+          "fill": "#000000",
+          "content": "Suns",
+          "fontFamily": "Walter Turncoat",
+          "fontSize": 66,
+          "fontWeight": "normal"
+        },
+        {
+          "type": "text",
+          "id": "9BPoG",
+          "x": 483,
+          "y": 121,
+          "fill": "#000000",
+          "content": "Bulls",
+          "fontFamily": "Walter Turncoat",
+          "fontSize": 66,
+          "fontWeight": "normal"
+        },
+        {
+          "type": "text",
+          "id": "VUPyH",
+          "x": 101,
+          "y": 213,
+          "fill": "#000000",
+          "content": "34",
+          "fontFamily": "Walter Turncoat",
+          "fontSize": 192,
+          "fontWeight": "normal"
+        },
+        {
+          "type": "text",
+          "id": "gZM9C",
+          "x": 458,
+          "y": 213,
+          "fill": "#000000",
+          "content": "23",
+          "fontFamily": "Walter Turncoat",
+          "fontSize": 192
+        }
+      ]
+    }
+  ]
+}
