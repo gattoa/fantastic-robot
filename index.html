@@ -11,6 +11,12 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div class="court" aria-hidden="true">
+    <div class="court__floor"></div>
+    <div class="court__lines"></div>
+    <div class="court__hoop court__hoop--left"></div>
+    <div class="court__hoop court__hoop--right"></div>
+  </div>
   <main class="cabinet" aria-label="Score keeper">
     <header class="marquee" aria-label="Arcade scoreboard header">
       <div class="marquee__top">Tournament Edition</div>
@@ -19,14 +25,17 @@
     </header>
 
     <div class="board" role="group" aria-label="Matchup scoreboard">
-      <section class="team team--a" aria-label="Phoenix Suns">
+      <section class="team team--a" id="team-a" aria-label="Phoenix Suns" data-heat="none">
         <h2 class="team__name">Phoenix Suns</h2>
         <div class="score" role="status" aria-live="polite" aria-atomic="true">
           <span class="score__value" id="score-a" aria-label="Phoenix Suns score" aria-valuenow="0" aria-valuemin="0">0</span>
         </div>
+        <span class="team__heat-label" id="heat-label-a" aria-live="polite" hidden>HEATING UP!</span>
         <div class="controls" aria-label="Phoenix Suns score controls">
-          <button class="btn" type="button" onclick="decrementTeamA()" aria-label="Decrease Phoenix Suns score by one">−</button>
-          <button class="btn" type="button" onclick="incrementTeamA()" aria-label="Increase Phoenix Suns score by one">+</button>
+          <button class="btn btn--minor" type="button" onclick="incrementTeamA()" aria-label="Increase Phoenix Suns score by one">+</button>
+          <button class="btn btn--primary" type="button" onclick="incrementTeamABy2()" aria-label="Add 2 points to Phoenix Suns">+2</button>
+          <button class="btn btn--primary" type="button" onclick="incrementTeamABy3()" aria-label="Add 3 points to Phoenix Suns">+3</button>
+          <button class="btn btn--minor" type="button" onclick="decrementTeamA()" aria-label="Decrease Phoenix Suns score by one">−</button>
         </div>
       </section>
 
@@ -35,17 +44,22 @@
         <div class="vs__text">VS</div>
       </div>
 
-      <section class="team team--b" aria-label="Chicago Bulls">
+      <section class="team team--b" id="team-b" aria-label="Chicago Bulls" data-heat="none">
         <h2 class="team__name">Chicago Bulls</h2>
         <div class="score" role="status" aria-live="polite" aria-atomic="true">
           <span class="score__value" id="score-b" aria-label="Chicago Bulls score" aria-valuenow="0" aria-valuemin="0">0</span>
         </div>
+        <span class="team__heat-label" id="heat-label-b" aria-live="polite" hidden>HEATING UP!</span>
         <div class="controls" aria-label="Chicago Bulls score controls">
-          <button class="btn" type="button" onclick="decrementTeamB()" aria-label="Decrease Chicago Bulls score by one">−</button>
-          <button class="btn" type="button" onclick="incrementTeamB()" aria-label="Increase Chicago Bulls score by one">+</button>
+          <button class="btn btn--minor" type="button" onclick="incrementTeamB()" aria-label="Increase Chicago Bulls score by one">+</button>
+          <button class="btn btn--primary" type="button" onclick="incrementTeamBBy2()" aria-label="Add 2 points to Chicago Bulls">+2</button>
+          <button class="btn btn--primary" type="button" onclick="incrementTeamBBy3()" aria-label="Add 3 points to Chicago Bulls">+3</button>
+          <button class="btn btn--minor" type="button" onclick="decrementTeamB()" aria-label="Decrease Chicago Bulls score by one">−</button>
         </div>
       </section>
     </div>
+
+    <button class="btn btn--reset" type="button" onclick="resetScores()" aria-label="Start over (reset scores to zero)">Start Over</button>
   </main>
 
   <script src="./script.js"></script>
