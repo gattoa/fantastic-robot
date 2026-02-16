@@ -193,30 +193,101 @@ function announceScore(teamName, score) {
   announcement.className = "sr-only";
   announcement.textContent = `${teamName} score is now ${score}`;
   document.body.appendChild(announcement);
-  
+
   // Remove after announcement
   setTimeout(() => {
     document.body.removeChild(announcement);
   }, 1000);
 }
 
-// Ensure the UI matches initial state on load
+// Setup event listeners
+const TEAMS = [
+  {
+    id: "a",
+    name: "Phoenix Suns",
+    class: "team--a",
+    controls: [
+      { id: "inc-1", label: "+", class: "btn--minor", aria: "Increase Phoenix Suns score by one" },
+      { id: "inc-2", label: "+2", class: "btn--primary", aria: "Add 2 points to Phoenix Suns" },
+      { id: "inc-3", label: "+3", class: "btn--primary", aria: "Add 3 points to Phoenix Suns" },
+      { id: "dec-1", label: "−", class: "btn--minor", aria: "Decrease Phoenix Suns score by one" },
+    ],
+  },
+  {
+    id: "b",
+    name: "Chicago Bulls",
+    class: "team--b",
+    controls: [
+      { id: "inc-1", label: "+", class: "btn--minor", aria: "Increase Chicago Bulls score by one" },
+      { id: "inc-2", label: "+2", class: "btn--primary", aria: "Add 2 points to Chicago Bulls" },
+      { id: "inc-3", label: "+3", class: "btn--primary", aria: "Add 3 points to Chicago Bulls" },
+      { id: "dec-1", label: "−", class: "btn--minor", aria: "Decrease Chicago Bulls score by one" },
+    ],
+  },
+];
+
+function generateTeamHTML(team, theme) {
+  const controlsHTML = team.controls
+    .map(
+      (btn) =>
+        `<button id="team-${team.id}-${btn.id}" class="btn ${btn.class}" type="button" aria-label="${btn.aria}">${btn.label}</button>`
+    )
+    .join("\n          ");
+
+  return `
+      <section class="team ${team.class}" id="team-${team.id}" aria-label="${team.name}" data-heat="none" data-theme="${theme}">
+        <h2 class="team__name">${team.name}</h2>
+        <div class="score" role="status" aria-live="polite" aria-atomic="true">
+          <span class="score__value" id="score-${team.id}" aria-label="${team.name} score" aria-valuenow="0" aria-valuemin="0">0</span>
+        </div>
+        <span class="team__heat-label" id="heat-label-${team.id}" aria-live="polite" hidden>HEATING UP!</span>
+        <div class="controls" aria-label="${team.name} score controls">
+          ${controlsHTML}
+        </div>
+      </section>
+  `;
+}
+
+function renderBoard() {
+  const board = document.querySelector(".board");
+  if (!board) return;
+
+  const teamATheme = document.body.getAttribute("data-team-a") || "suns";
+  const teamBTheme = document.body.getAttribute("data-team-b") || "bulls";
+
+  const teamAHTML = generateTeamHTML(TEAMS[0], teamATheme);
+  const teamBHTML = generateTeamHTML(TEAMS[1], teamBTheme);
+  const vsHTML = `
+      <div class="vs" aria-hidden="true">
+        <div class="vs__ring"></div>
+        <div class="vs__text">VS</div>
+      </div>
+  `;
+
+  board.innerHTML = teamAHTML + vsHTML + teamBHTML;
+}
+
+// Setup event listeners
 document.addEventListener("DOMContentLoaded", () => {
+  renderBoard(); // Generate HTML first
   loadScores();
   renderScores();
+
   // Consecutive streaks don't persist across page loads
   consecutiveA = 0;
   consecutiveB = 0;
   applyHeatState();
-});
 
-// Expose functions for inline onclick handlers
-window.incrementTeamA = incrementTeamA;
-window.incrementTeamABy2 = incrementTeamABy2;
-window.incrementTeamABy3 = incrementTeamABy3;
-window.decrementTeamA = decrementTeamA;
-window.incrementTeamB = incrementTeamB;
-window.incrementTeamBBy2 = incrementTeamBBy2;
-window.incrementTeamBBy3 = incrementTeamBBy3;
-window.decrementTeamB = decrementTeamB;
-window.resetScores = resetScores;
+  // Attach event listeners
+  document.getElementById("team-a-inc-1")?.addEventListener("click", () => incrementTeamA());
+  document.getElementById("team-a-inc-2")?.addEventListener("click", () => incrementTeamABy2());
+  document.getElementById("team-a-inc-3")?.addEventListener("click", () => incrementTeamABy3());
+  document.getElementById("team-a-dec-1")?.addEventListener("click", () => decrementTeamA());
+
+  document.getElementById("team-b-inc-1")?.addEventListener("click", () => incrementTeamB());
+  document.getElementById("team-b-inc-2")?.addEventListener("click", () => incrementTeamBBy2());
+  document.getElementById("team-b-inc-3")?.addEventListener("click", () => incrementTeamBBy3());
+  document.getElementById("team-b-dec-1")?.addEventListener("click", () => decrementTeamB());
+
+  document.getElementById("reset-score")?.addEventListener("click", resetScores);
+});

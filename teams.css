@@ -1,0 +1,51 @@
+/* 
+  TEAMS & BRAND IDENTITIES
+  This file contains the specific color palettes for the league and each team.
+*/
+
+:root {
+    /* --- LEAGUE BRAND --- */
+
+    /* Gold Palette */
+    --brand-gold-rgb: 212, 168, 75;
+    --brand-gold: rgb(var(--brand-gold-rgb));
+    /* #d4a84b */
+    --brand-gold-soft: rgba(var(--brand-gold-rgb), 0.6);
+
+    /* --- NBA TEAMS --- */
+
+    /* Phoenix Suns */
+    --brand-suns-primary-rgb: 42, 26, 80;
+    /* #2a1a50 */
+    --brand-suns-dark: #160d45;
+    --brand-suns-accent-rgb: 229, 96, 32;
+    /* #E56020 */
+    --brand-suns-accent-light: #F9AD1B;
+
+    /* Chicago Bulls */
+    --brand-bulls-primary-rgb: 40, 15, 25;
+    /* Deep red/black */
+    --brand-bulls-dark: #0f050a;
+    --brand-bulls-accent-rgb: 206, 17, 65;
+    /* #CE1141 */
+}
+
+/* --- DYNAMIC CONTEXT MAPPING --- */
+
+/* Generic Team Selectors (Scoped by data-theme on the team element) */
+[data-theme="suns"] {
+    --team-base-rgb: var(--brand-suns-primary-rgb);
+    --team-dark: var(--brand-suns-dark);
+    --team-accent-rgb: var(--brand-suns-accent-rgb);
+    --team-accent: rgb(var(--team-accent-rgb));
+    --team-accent-light: var(--brand-suns-accent-light);
+}
+
+[data-theme="bulls"] {
+    --team-base-rgb: var(--brand-bulls-primary-rgb);
+    --team-dark: var(--brand-bulls-dark);
+    --team-accent-rgb: var(--brand-bulls-accent-rgb);
+    --team-accent: rgb(var(--team-accent-rgb));
+    --team-accent-light: rgb(var(--brand-bulls-accent-rgb));
+    /* Fallback */
+}
